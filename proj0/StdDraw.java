@@ -110,8 +110,8 @@ import javax.swing.KeyStroke;
  *  <b>Points and lines.</b>
  *  You can draw points and line segments with the following methods:
  *  <ul>
- *  <li> {@link #point(double x, double y)}
- *  <li> {@link #line(double x1, double y1, double x2, double y2)}
+ *  <li>
+ *  <li>
  *  </ul>
  *  <p>
  *  The <em>x</em>- and <em>y</em>-coordinates must be in the drawing area
@@ -121,10 +121,6 @@ import javax.swing.KeyStroke;
  *  You can draw squares, circles, rectangles, and ellipses using
  *  the following methods:
  *  <ul>
- *  <li> {@link #circle(double x, double y, double radius)}
- *  <li> {@link #ellipse(double x, double y, double semiMajorAxis, double semiMinorAxis)}
- *  <li> {@link #square(double x, double y, double radius)}
- *  <li> {@link #rectangle(double x, double y, double halfWidth, double halfHeight)}
  *  </ul>
  *  <p>
  *  All of these methods take as arguments the location and size of the shape.
@@ -139,16 +135,11 @@ import javax.swing.KeyStroke;
  *  The methods above trace outlines of the given shapes. The following methods
  *  draw filled versions:
  *  <ul>
- *  <li> {@link #filledCircle(double x, double y, double radius)}
- *  <li> {@link #filledEllipse(double x, double y, double semiMajorAxis, double semiMinorAxis)}
- *  <li> {@link #filledSquare(double x, double y, double radius)}
- *  <li> {@link #filledRectangle(double x, double y, double halfWidth, double halfHeight)}
  *  </ul>
  *  <p>
  *  <b>Circular arcs.</b>
  *  You can draw circular arcs with the following method:
  *  <ul>
- *  <li> {@link #arc(double x, double y, double radius, double angle1, double angle2)}
  *  </ul>
  *  <p>
  *  The arc is from the circle centered at (<em>x</em>, <em>y</em>) of the specified radius.
@@ -160,11 +151,8 @@ import javax.swing.KeyStroke;
  *  <b>Polygons.</b>
  *  You can draw polygons with the following methods:
  *  <ul>
- *  <li> {@link #polygon(double[] x, double[] y)}
- *  <li> {@link #filledPolygon(double[] x, double[] y)}
  *  </ul>
  *  <p>
- *  The points in the polygon are ({@code x[i]}, {@code y[i]}).
  *  For example, the following code fragment draws a filled diamond
  *  with vertices (0.1, 0.2), (0.2, 0.3), (0.3, 0.2), and (0.2, 0.1):
  *  <pre>
@@ -183,10 +171,8 @@ import javax.swing.KeyStroke;
  *  you will be able to see individual circles, but if you draw 200 such
  *  points, the result will look like a line.
  *  <ul>
- *  <li> {@link #setPenRadius(double radius)}
  *  </ul>
  *  <p>
- *  For example, {@code StdDraw.setPenRadius(0.025)} makes
  *  the thickness of the lines and the size of the points to be five times
  *  the 0.005 default.
  *  To draw points with the minimum possible radius (one pixel on typical
@@ -197,21 +183,12 @@ import javax.swing.KeyStroke;
  *  the current pen color. By default, it is black.
  *  You can change the pen color with the following methods:
  *  <ul>
- *  <li> {@link #setPenColor(int red, int green, int blue)}
- *  <li> {@link #setPenColor(Color color)}
  *  </ul>
  *  <p>
  *  The first method allows you to specify colors using the RGB color system.
  *  This <a href = "http://johndyer.name/lab/colorpicker/">color picker</a>
  *  is a convenient way to find a desired color.
  *  The second method allows you to specify colors using the
- *  {@link Color} data type that is discussed in Chapter 3. Until then,
- *  you can use this method with one of these predefined colors in standard drawing:
- *  {@link #BLACK}, {@link #BLUE}, {@link #CYAN}, {@link #DARK_GRAY}, {@link #GRAY},
- *  {@link #GREEN}, {@link #LIGHT_GRAY}, {@link #MAGENTA}, {@link #ORANGE},
- *  {@link #PINK}, {@link #RED}, {@link #WHITE}, {@link #YELLOW},
- *  {@link #BOOK_BLUE}, {@link #BOOK_LIGHT_BLUE}, {@link #BOOK_RED}, and
- *  {@link #PRINCETON_ORANGE}.
  *  For example, {@code StdDraw.setPenColor(StdDraw.MAGENTA)} sets the
  *  pen color to magenta.
  *  <p>
@@ -220,7 +197,6 @@ import javax.swing.KeyStroke;
  *  The canvas does not include the window title or window border.
  *  You can change the size of the canvas with the following method:
  *  <ul>
- *  <li> {@link #setCanvasSize(int width, int height)}
  *  </ul>
  *  <p>
  *  This sets the canvas size to be <em>width</em>-by-<em>height</em> pixels.
@@ -254,10 +230,6 @@ import javax.swing.KeyStroke;
  *  <b>Text.</b>
  *  You can use the following methods to annotate your drawings with text:
  *  <ul>
- *  <li> {@link #text(double x, double y, String text)}
- *  <li> {@link #text(double x, double y, String text, double degrees)}
- *  <li> {@link #textLeft(double x, double y, String text)}
- *  <li> {@link #textRight(double x, double y, String text)}
  *  </ul>
  *  <p>
  *  The first two methods write the specified text in the current font,
@@ -268,7 +240,6 @@ import javax.swing.KeyStroke;
  *  The default font is a Sans Serif font with point size 16.
  *  You can use the following method to change the font:
  *  <ul>
- *  <li> {@link #setFont(Font font)}
  *  </ul>
  *  <p>
  *  You use the {@link Font} data type to specify the font. This allows you to
@@ -283,10 +254,6 @@ import javax.swing.KeyStroke;
  *  <b>Images.</b>
  *  You can use the following methods to add images to your drawings:
  *  <ul>
- *  <li> {@link #picture(double x, double y, String filename)}
- *  <li> {@link #picture(double x, double y, String filename, double degrees)}
- *  <li> {@link #picture(double x, double y, String filename, double scaledWidth, double scaledHeight)}
- *  <li> {@link #picture(double x, double y, String filename, double scaledWidth, double scaledHeight, double degrees)}
  *  </ul>
  *  <p>
  *  These methods draw the specified image, centered at (<em>x</em>, <em>y</em>).
@@ -296,10 +263,6 @@ import javax.swing.KeyStroke;
  *  or rescale it to fit snugly inside a width-by-height bounding box.
  *  <p>
  *  <b>Saving to a file.</b>
- *  You save your image to a file using the <em>File → Save</em> menu option.
- *  You can also save a file programatically using the following method:
- *  <ul>
- *  <li> {@link #save(String filename)}
  *  </ul>
  *  <p>
  *  The supported image formats are JPEG and PNG. The filename must have either the
@@ -310,8 +273,6 @@ import javax.swing.KeyStroke;
  *  <b>Clearing the canvas.</b>
  *  To clear the entire drawing canvas, you can use the following methods:
  *  <ul>
- *  <li> {@link #clear()}
- *  <li> {@link #clear(Color color)}
  *  </ul>
  *  <p>
  *  The first method clears the canvas to white; the second method
@@ -407,9 +368,6 @@ import javax.swing.KeyStroke;
  *  You can use the following methods to access the current pen color, pen radius,
  *  and font:
  *  <ul>
- *  <li> {@link #getPenColor()}
- *  <li> {@link #getPenRadius()}
- *  <li> {@link #getFont()}
  *  </ul>
  *  <p>
  *  These methods are useful when you want to temporarily change a
@@ -419,47 +377,16 @@ import javax.swing.KeyStroke;
  *  To avoid clutter, the API doesn't explicitly refer to arguments that are
  *  null, infinity, or NaN.
  *  <ul>
- *  <li> Any method that is passed a {@code null} argument will throw an
- *       {@link IllegalArgumentException}.
- *  <li> Except as noted in the APIs, drawing an object outside (or partly outside)
- *       the canvas is permitted—however, only the part of the object that
- *       appears inside the canvas will be visible.
- *  <li> Except as noted in the APIs, all methods accept {@link Double#NaN},
- *       {@link Double#POSITIVE_INFINITY}, and {@link Double#NEGATIVE_INFINITY}
- *       as arugments. An object drawn with an <em>x</em>- or <em>y</em>-coordinate
- *       that is NaN will behave as if it is outside the canvas, and will not be visible.
- *  <li> Due to floating-point issues, an object drawn with an <em>x</em>- or
- *       <em>y</em>-coordinate that is way outside the canvas (such as the line segment
- *       from (0.5, –&infin;) to (0.5, &infin;) may not be visible even in the
- *       part of the canvas where it should be.
  *  </ul>
  *  <p>
  *  <b>Performance tricks.</b>
  *  Standard drawing is capable of drawing large amounts of data.
  *  Here are a few tricks and tips:
  *  <ul>
- *  <li> Use <em>double buffering</em> for static drawing with a large
- *       number of objects.
- *       That is, call {@link #enableDoubleBuffering()} before
- *       the sequence of drawing commands and call {@link #show()} afterwards.
- *       Incrementally displaying a complex drawing while it is being
- *       created can be intolerably inefficient on many computer systems.
- *  <li> When drawing computer animations, call {@code show()}
- *       only once per frame, not after drawing each individual object.
- *  <li> If you call {@code picture()} multiple times with the same filename,
- *       Java will cache the image, so you do not incur the cost of reading
- *       from a file each time.
  *  </ul>
  *  <p>
  *  <b>Known bugs and issues.</b>
  *  <ul>
- *  <li> The {@code picture()} methods may not draw the portion of the image that is
- *       inside the canvas if the center point (<em>x</em>, <em>y</em>) is outside the
- *       canvas.
- *       This bug appears only on some systems.
- *  <li> Some methods may not draw the portion of the geometric object that is inside the
- *       canvas if the <em>x</em>- or <em>y</em>-coordinates are infinite.
- *       This bug appears only on some systems.
  *  </ul>
  *  <p>
  *  <b>Reference.</b>
@@ -650,10 +577,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      * Ordinarly, this method is called once, at the very beginning
      * of a program.
      *
-     * @param  canvasWidth the width as a number of pixels
-     * @param  canvasHeight the height as a number of pixels
-     * @throws IllegalArgumentException unless both {@code canvasWidth} and
-     *         {@code canvasHeight} are positive
      */
     public static void setCanvasSize(int canvasWidth, int canvasHeight) {
         if (canvasWidth <= 0 || canvasHeight <= 0)
@@ -765,9 +688,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     /**
      * Sets the <em>y</em>-scale to the specified range.
      *
-     * @param  min the minimum value of the <em>y</em>-scale
-     * @param  max the maximum value of the <em>y</em>-scale
-     * @throws IllegalArgumentException if {@code (max == min)}
      */
     public static void setYscale(double min, double max) {
         double size = max - min;
@@ -778,13 +698,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         }
     }
 
-    /**
-     * Sets both the <em>x</em>-scale and <em>y</em>-scale to the (same) specified range.
-     *
-     * @param  min the minimum value of the <em>x</em>- and <em>y</em>-scales
-     * @param  max the maximum value of the <em>x</em>- and <em>y</em>-scales
-     * @throws IllegalArgumentException if {@code (max == min)}
-     */
     public static void setScale(double min, double max) {
         double size = max - min;
         if (size == 0.0) throw new IllegalArgumentException("the min and max are the same");
@@ -812,11 +725,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         clear(DEFAULT_CLEAR_COLOR);
     }
 
-    /**
-     * Clears the screen to the specified color.
-     *
-     * @param color the color to make the background
-     */
     public static void clear(Color color) {
         offscreen.setColor(color);
         offscreen.fillRect(0, 0, width, height);
@@ -824,11 +732,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         draw();
     }
 
-    /**
-     * Returns the current pen radius.
-     *
-     * @return the current value of the pen radius
-     */
     public static double getPenRadius() {
         return penRadius;
     }
@@ -843,15 +746,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         setPenRadius(DEFAULT_PEN_RADIUS);
     }
 
-    /**
-     * Sets the radius of the pen to the specified size.
-     * The pen is circular, so that lines have rounded ends, and when you set the
-     * pen radius and draw a point, you get a circle of the specified radius.
-     * The pen radius is not affected by coordinate scaling.
-     *
-     * @param  radius the radius of the pen
-     * @throws IllegalArgumentException if {@code radius} is negative
-     */
     public static void setPenRadius(double radius) {
         if (!(radius >= 0)) throw new IllegalArgumentException("pen radius must be nonnegative");
         penRadius = radius;
@@ -861,11 +755,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         offscreen.setStroke(stroke);
     }
 
-    /**
-     * Returns the current pen color.
-     *
-     * @return the current pen color
-     */
     public static Color getPenColor() {
         return penColor;
     }
@@ -877,33 +766,12 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         setPenColor(DEFAULT_PEN_COLOR);
     }
 
-    /**
-     * Sets the pen color to the specified color.
-     * <p>
-     * The predefined pen colors are
-     * {@code StdDraw.BLACK}, {@code StdDraw.BLUE}, {@code StdDraw.CYAN},
-     * {@code StdDraw.DARK_GRAY}, {@code StdDraw.GRAY}, {@code StdDraw.GREEN},
-     * {@code StdDraw.LIGHT_GRAY}, {@code StdDraw.MAGENTA}, {@code StdDraw.ORANGE},
-     * {@code StdDraw.PINK}, {@code StdDraw.RED}, {@code StdDraw.WHITE}, and
-     * {@code StdDraw.YELLOW}.
-     *
-     * @param color the color to make the pen
-     */
     public static void setPenColor(Color color) {
         if (color == null) throw new IllegalArgumentException();
         penColor = color;
         offscreen.setColor(penColor);
     }
 
-    /**
-     * Sets the pen color to the specified RGB color.
-     *
-     * @param  red the amount of red (between 0 and 255)
-     * @param  green the amount of green (between 0 and 255)
-     * @param  blue the amount of blue (between 0 and 255)
-     * @throws IllegalArgumentException if {@code red}, {@code green},
-     *         or {@code blue} is outside its prescribed range
-     */
     public static void setPenColor(int red, int green, int blue) {
         if (red   < 0 || red   >= 256) throw new IllegalArgumentException("amount of red must be between 0 and 255");
         if (green < 0 || green >= 256) throw new IllegalArgumentException("amount of green must be between 0 and 255");
@@ -942,40 +810,15 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     *  Drawing geometric shapes.
     ***************************************************************************/
 
-    /**
-     * Draws a line segment between (<em>x</em><sub>0</sub>, <em>y</em><sub>0</sub>) and
-     * (<em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>).
-     *
-     * @param  x0 the <em>x</em>-coordinate of one endpoint
-     * @param  y0 the <em>y</em>-coordinate of one endpoint
-     * @param  x1 the <em>x</em>-coordinate of the other endpoint
-     * @param  y1 the <em>y</em>-coordinate of the other endpoint
-     */
     public static void line(double x0, double y0, double x1, double y1) {
         offscreen.draw(new Line2D.Double(scaleX(x0), scaleY(y0), scaleX(x1), scaleY(y1)));
         draw();
     }
 
-    /**
-     * Draws one pixel at (<em>x</em>, <em>y</em>).
-     * This method is private because pixels depend on the display.
-     * To achieve the same effect, set the pen radius to 0 and call {@code point()}.
-     *
-     * @param  x the <em>x</em>-coordinate of the pixel
-     * @param  y the <em>y</em>-coordinate of the pixel
-     */
     private static void pixel(double x, double y) {
         offscreen.fillRect((int) Math.round(scaleX(x)), (int) Math.round(scaleY(y)), 1, 1);
     }
 
-    /**
-     * Draws a point centered at (<em>x</em>, <em>y</em>).
-     * The point is a filled circle whose radius is equal to the pen radius.
-     * To draw a single-pixel point, first set the pen radius to 0.
-     *
-     * @param x the <em>x</em>-coordinate of the point
-     * @param y the <em>y</em>-coordinate of the point
-     */
     public static void point(double x, double y) {
         double xs = scaleX(x);
         double ys = scaleY(y);
@@ -991,14 +834,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         draw();
     }
 
-    /**
-     * Draws a circle of the specified radius, centered at (<em>x</em>, <em>y</em>).
-     *
-     * @param  x the <em>x</em>-coordinate of the center of the circle
-     * @param  y the <em>y</em>-coordinate of the center of the circle
-     * @param  radius the radius of the circle
-     * @throws IllegalArgumentException if {@code radius} is negative
-     */
     public static void circle(double x, double y, double radius) {
         if (!(radius >= 0)) throw new IllegalArgumentException("radius must be nonnegative");
         double xs = scaleX(x);
@@ -1010,14 +845,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         draw();
     }
 
-    /**
-     * Draws a filled circle of the specified radius, centered at (<em>x</em>, <em>y</em>).
-     *
-     * @param  x the <em>x</em>-coordinate of the center of the circle
-     * @param  y the <em>y</em>-coordinate of the center of the circle
-     * @param  radius the radius of the circle
-     * @throws IllegalArgumentException if {@code radius} is negative
-     */
     public static void filledCircle(double x, double y, double radius) {
         if (!(radius >= 0)) throw new IllegalArgumentException("radius must be nonnegative");
         double xs = scaleX(x);
@@ -1030,17 +857,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     }
 
 
-    /**
-     * Draws an ellipse with the specified semimajor and semiminor axes,
-     * centered at (<em>x</em>, <em>y</em>).
-     *
-     * @param  x the <em>x</em>-coordinate of the center of the ellipse
-     * @param  y the <em>y</em>-coordinate of the center of the ellipse
-     * @param  semiMajorAxis is the semimajor axis of the ellipse
-     * @param  semiMinorAxis is the semiminor axis of the ellipse
-     * @throws IllegalArgumentException if either {@code semiMajorAxis}
-     *         or {@code semiMinorAxis} is negative
-     */
     public static void ellipse(double x, double y, double semiMajorAxis, double semiMinorAxis) {
         if (!(semiMajorAxis >= 0)) throw new IllegalArgumentException("ellipse semimajor axis must be nonnegative");
         if (!(semiMinorAxis >= 0)) throw new IllegalArgumentException("ellipse semiminor axis must be nonnegative");
@@ -1053,17 +869,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         draw();
     }
 
-    /**
-     * Draws an ellipse with the specified semimajor and semiminor axes,
-     * centered at (<em>x</em>, <em>y</em>).
-     *
-     * @param  x the <em>x</em>-coordinate of the center of the ellipse
-     * @param  y the <em>y</em>-coordinate of the center of the ellipse
-     * @param  semiMajorAxis is the semimajor axis of the ellipse
-     * @param  semiMinorAxis is the semiminor axis of the ellipse
-     * @throws IllegalArgumentException if either {@code semiMajorAxis}
-     *         or {@code semiMinorAxis} is negative
-     */
     public static void filledEllipse(double x, double y, double semiMajorAxis, double semiMinorAxis) {
         if (!(semiMajorAxis >= 0)) throw new IllegalArgumentException("ellipse semimajor axis must be nonnegative");
         if (!(semiMinorAxis >= 0)) throw new IllegalArgumentException("ellipse semiminor axis must be nonnegative");
@@ -1077,18 +882,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     }
 
 
-    /**
-     * Draws a circular arc of the specified radius,
-     * centered at (<em>x</em>, <em>y</em>), from angle1 to angle2 (in degrees).
-     *
-     * @param  x the <em>x</em>-coordinate of the center of the circle
-     * @param  y the <em>y</em>-coordinate of the center of the circle
-     * @param  radius the radius of the circle
-     * @param  angle1 the starting angle. 0 would mean an arc beginning at 3 o'clock.
-     * @param  angle2 the angle at the end of the arc. For example, if
-     *         you want a 90 degree arc, then angle2 should be angle1 + 90.
-     * @throws IllegalArgumentException if {@code radius} is negative
-     */
     public static void arc(double x, double y, double radius, double angle1, double angle2) {
         if (radius < 0) throw new IllegalArgumentException("arc radius must be nonnegative");
         while (angle2 < angle1) angle2 += 360;
@@ -1101,14 +894,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         draw();
     }
 
-    /**
-     * Draws a square of side length 2r, centered at (<em>x</em>, <em>y</em>).
-     *
-     * @param  x the <em>x</em>-coordinate of the center of the square
-     * @param  y the <em>y</em>-coordinate of the center of the square
-     * @param  halfLength one half the length of any side of the square
-     * @throws IllegalArgumentException if {@code halfLength} is negative
-     */
     public static void square(double x, double y, double halfLength) {
         if (!(halfLength >= 0)) throw new IllegalArgumentException("half length must be nonnegative");
         double xs = scaleX(x);
@@ -1120,14 +905,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         draw();
     }
 
-    /**
-     * Draws a filled square of the specified size, centered at (<em>x</em>, <em>y</em>).
-     *
-     * @param  x the <em>x</em>-coordinate of the center of the square
-     * @param  y the <em>y</em>-coordinate of the center of the square
-     * @param  halfLength one half the length of any side of the square
-     * @throws IllegalArgumentException if {@code halfLength} is negative
-     */
     public static void filledSquare(double x, double y, double halfLength) {
         if (!(halfLength >= 0)) throw new IllegalArgumentException("half length must be nonnegative");
         double xs = scaleX(x);
@@ -1140,15 +917,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     }
 
 
-    /**
-     * Draws a rectangle of the specified size, centered at (<em>x</em>, <em>y</em>).
-     *
-     * @param  x the <em>x</em>-coordinate of the center of the rectangle
-     * @param  y the <em>y</em>-coordinate of the center of the rectangle
-     * @param  halfWidth one half the width of the rectangle
-     * @param  halfHeight one half the height of the rectangle
-     * @throws IllegalArgumentException if either {@code halfWidth} or {@code halfHeight} is negative
-     */
     public static void rectangle(double x, double y, double halfWidth, double halfHeight) {
         if (!(halfWidth  >= 0)) throw new IllegalArgumentException("half width must be nonnegative");
         if (!(halfHeight >= 0)) throw new IllegalArgumentException("half height must be nonnegative");
@@ -1161,15 +929,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         draw();
     }
 
-    /**
-     * Draws a filled rectangle of the specified size, centered at (<em>x</em>, <em>y</em>).
-     *
-     * @param  x the <em>x</em>-coordinate of the center of the rectangle
-     * @param  y the <em>y</em>-coordinate of the center of the rectangle
-     * @param  halfWidth one half the width of the rectangle
-     * @param  halfHeight one half the height of the rectangle
-     * @throws IllegalArgumentException if either {@code halfWidth} or {@code halfHeight} is negative
-     */
     public static void filledRectangle(double x, double y, double halfWidth, double halfHeight) {
         if (!(halfWidth  >= 0)) throw new IllegalArgumentException("half width must be nonnegative");
         if (!(halfHeight >= 0)) throw new IllegalArgumentException("half height must be nonnegative");
@@ -1183,17 +942,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     }
 
 
-    /**
-     * Draws a polygon with the vertices 
-     * (<em>x</em><sub>0</sub>, <em>y</em><sub>0</sub>),
-     * (<em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>), ...,
-     * (<em>x</em><sub><em>n</em>–1</sub>, <em>y</em><sub><em>n</em>–1</sub>).
-     *
-     * @param  x an array of all the <em>x</em>-coordinates of the polygon
-     * @param  y an array of all the <em>y</em>-coordinates of the polygon
-     * @throws IllegalArgumentException unless {@code x[]} and {@code y[]}
-     *         are of the same length
-     */
     public static void polygon(double[] x, double[] y) {
         if (x == null) throw new IllegalArgumentException("x-coordinate array is null");
         if (y == null) throw new IllegalArgumentException("y-coordinate array is null");
@@ -1212,17 +960,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         draw();
     }
 
-    /**
-     * Draws a polygon with the vertices 
-     * (<em>x</em><sub>0</sub>, <em>y</em><sub>0</sub>),
-     * (<em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>), ...,
-     * (<em>x</em><sub><em>n</em>–1</sub>, <em>y</em><sub><em>n</em>–1</sub>).
-     *
-     * @param  x an array of all the <em>x</em>-coordinates of the polygon
-     * @param  y an array of all the <em>y</em>-coordinates of the polygon
-     * @throws IllegalArgumentException unless {@code x[]} and {@code y[]}
-     *         are of the same length
-     */
     public static void filledPolygon(double[] x, double[] y) {
         if (x == null) throw new IllegalArgumentException("x-coordinate array is null");
         if (y == null) throw new IllegalArgumentException("y-coordinate array is null");
@@ -1323,19 +1060,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         throw new IllegalArgumentException("image " + filename + " not found");
     }
 */
-    /**
-     * Draws the specified image centered at (<em>x</em>, <em>y</em>).
-     * The supported image formats are JPEG, PNG, and GIF.
-     * As an optimization, the picture is cached, so there is no performance
-     * penalty for redrawing the same image multiple times (e.g., in an animation).
-     * However, if you change the picture file after drawing it, subsequent
-     * calls will draw the original picture.
-     *
-     * @param  x the center <em>x</em>-coordinate of the image
-     * @param  y the center <em>y</em>-coordinate of the image
-     * @param  filename the name of the image/picture, e.g., "ball.gif"
-     * @throws IllegalArgumentException if the image filename is invalid
-     */
+
     public static void picture(double x, double y, String filename) {
         // BufferedImage image = getImage(filename);
         Image image = getImage(filename);
@@ -1351,17 +1076,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         draw();
     }
 
-    /**
-     * Draws the specified image centered at (<em>x</em>, <em>y</em>),
-     * rotated given number of degrees.
-     * The supported image formats are JPEG, PNG, and GIF.
-     *
-     * @param  x the center <em>x</em>-coordinate of the image
-     * @param  y the center <em>y</em>-coordinate of the image
-     * @param  filename the name of the image/picture, e.g., "ball.gif"
-     * @param  degrees is the number of degrees to rotate counterclockwise
-     * @throws IllegalArgumentException if the image filename is invalid
-     */
     public static void picture(double x, double y, String filename, double degrees) {
         // BufferedImage image = getImage(filename);
         Image image = getImage(filename);
@@ -1380,20 +1094,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         draw();
     }
 
-    /**
-     * Draws the specified image centered at (<em>x</em>, <em>y</em>),
-     * rescaled to the specified bounding box.
-     * The supported image formats are JPEG, PNG, and GIF.
-     *
-     * @param  x the center <em>x</em>-coordinate of the image
-     * @param  y the center <em>y</em>-coordinate of the image
-     * @param  filename the name of the image/picture, e.g., "ball.gif"
-     * @param  scaledWidth the width of the scaled image (in screen coordinates)
-     * @param  scaledHeight the height of the scaled image (in screen coordinates)
-     * @throws IllegalArgumentException if either {@code scaledWidth}
-     *         or {@code scaledHeight} is negative
-     * @throws IllegalArgumentException if the image filename is invalid
-     */
     public static void picture(double x, double y, String filename, double scaledWidth, double scaledHeight) {
         Image image = getImage(filename);
         if (scaledWidth  < 0) throw new IllegalArgumentException("width  is negative: " + scaledWidth);
@@ -1414,21 +1114,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     }
 
 
-    /**
-     * Draws the specified image centered at (<em>x</em>, <em>y</em>), rotated
-     * given number of degrees, and rescaled to the specified bounding box.
-     * The supported image formats are JPEG, PNG, and GIF.
-     *
-     * @param  x the center <em>x</em>-coordinate of the image
-     * @param  y the center <em>y</em>-coordinate of the image
-     * @param  filename the name of the image/picture, e.g., "ball.gif"
-     * @param  scaledWidth the width of the scaled image (in screen coordinates)
-     * @param  scaledHeight the height of the scaled image (in screen coordinates)
-     * @param  degrees is the number of degrees to rotate counterclockwise
-     * @throws IllegalArgumentException if either {@code scaledWidth}
-     *         or {@code scaledHeight} is negative
-     * @throws IllegalArgumentException if the image filename is invalid
-     */
     public static void picture(double x, double y, String filename, double scaledWidth, double scaledHeight, double degrees) {
         if (scaledWidth < 0) throw new IllegalArgumentException("width is negative: " + scaledWidth);
         if (scaledHeight < 0) throw new IllegalArgumentException("height is negative: " + scaledHeight);
@@ -1454,13 +1139,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     *  Drawing text.
     ***************************************************************************/
 
-    /**
-     * Write the given text string in the current font, centered at (<em>x</em>, <em>y</em>).
-     *
-     * @param  x the center <em>x</em>-coordinate of the text
-     * @param  y the center <em>y</em>-coordinate of the text
-     * @param  text the text to write
-     */
     public static void text(double x, double y, String text) {
         if (text == null) throw new IllegalArgumentException();
         offscreen.setFont(font);
@@ -1473,14 +1151,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         draw();
     }
 
-    /**
-     * Write the given text string in the current font, centered at (<em>x</em>, <em>y</em>) and
-     * rotated by the specified number of degrees.
-     * @param  x the center <em>x</em>-coordinate of the text
-     * @param  y the center <em>y</em>-coordinate of the text
-     * @param  text the text to write
-     * @param  degrees is the number of degrees to rotate counterclockwise
-     */
     public static void text(double x, double y, String text, double degrees) {
         if (text == null) throw new IllegalArgumentException();
         double xs = scaleX(x);
@@ -1490,13 +1160,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         offscreen.rotate(Math.toRadians(+degrees), xs, ys);
     }
 
-
-    /**
-     * Write the given text string in the current font, left-aligned at (<em>x</em>, <em>y</em>).
-     * @param  x the <em>x</em>-coordinate of the text
-     * @param  y the <em>y</em>-coordinate of the text
-     * @param  text the text
-     */
     public static void textLeft(double x, double y, String text) {
         if (text == null) throw new IllegalArgumentException();
         offscreen.setFont(font);
@@ -1508,13 +1171,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         draw();
     }
 
-    /**
-     * Write the given text string in the current font, right-aligned at (<em>x</em>, <em>y</em>).
-     *
-     * @param  x the <em>x</em>-coordinate of the text
-     * @param  y the <em>y</em>-coordinate of the text
-     * @param  text the text to write
-     */
     public static void textRight(double x, double y, String text) {
         if (text == null) throw new IllegalArgumentException();
         offscreen.setFont(font);
@@ -1527,14 +1183,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         draw();
     }
 
-
-
-    /**
-     * Copies the offscreen buffer to the onscreen buffer, pauses for t milliseconds
-     * and enables double buffering.
-     * @param t number of milliseconds
-     * @deprecated replaced by {@link #enableDoubleBuffering()}, {@link #show()}, and {@link #pause(int t)}
-     */
     @Deprecated
     public static void show(int t) {
         show();
@@ -1594,13 +1242,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     *  Save drawing to a file.
     ***************************************************************************/
 
-    /**
-     * Saves the drawing to using the specified filename.
-     * The supported image formats are JPEG and PNG;
-     * the filename suffix must be {@code .jpg} or {@code .png}.
-     *
-     * @param  filename the name of the file with one of the required suffixes
-     */
     public static void save(String filename) {
         if (filename == null) throw new IllegalArgumentException();
         File file = new File(filename);
@@ -1792,18 +1433,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         }
     }
 
-    /**
-     * Returns the next key that was typed by the user (that your program has not already processed).
-     * This method should be preceded by a call to {@link #hasNextKeyTyped()} to ensure
-     * that there is a next key to process.
-     * This method returns a Unicode character corresponding to the key
-     * typed (such as {@code 'a'} or {@code 'A'}).
-     * It cannot identify action keys (such as F1 and arrow keys)
-     * or modifier keys (such as control).
-     *
-     * @return the next key typed by the user (that your program has not already processed).
-     * @throws NoSuchElementException if there is no remaining key
-     */
     public static char nextKeyTyped() {
         synchronized (keyLock) {
             if (keysTyped.isEmpty()) {
@@ -1814,18 +1443,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         }
     }
 
-    /**
-     * Returns true if the given key is being pressed.
-     * <p>
-     * This method takes the keycode (corresponding to a physical key)
-    *  as an argument. It can handle action keys
-     * (such as F1 and arrow keys) and modifier keys (such as shift and control).
-     * See {@link KeyEvent} for a description of key codes.
-     *
-     * @param  keycode the key to check if it is being pressed
-     * @return {@code true} if {@code keycode} is currently being pressed;
-     *         {@code false} otherwise
-     */
     public static boolean isKeyPressed(int keycode) {
         synchronized (keyLock) {
             return keysDown.contains(keycode);
