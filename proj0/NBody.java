@@ -6,7 +6,7 @@ public class NBody {
         return secondItemInFile;
     }
 
-    public static Planet[] readPlanets(String file){
+    public static Planet[] readPlanets(String file) {
         In in=new In(file);
         int firstItemInFile = in.readInt();
 		double secondItemInFile = in.readDouble();
