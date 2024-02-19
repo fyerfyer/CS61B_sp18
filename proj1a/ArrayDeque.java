@@ -23,14 +23,14 @@ public class ArrayDeque<T> {
 
     private void resizeIfNecessary() {
         if(size == length) {
-            Resize(2 * length);
+            Resizea();
         } else if(length >= 16 && size < length * 0.25) {
-            Resize(length / 2);
+            Resizeb();
         } 
     }
 
-    private void Resize(int capacity) {
-        T[] newArray = (T[]) new Object[capacity];
+    private void Resizea() {
+        T[] newArray = (T[]) new Object[length * 2];
         int ptr1 = prevpos;
         int ptr2 = length;
         while (ptr1 != lastpos) {
@@ -42,6 +42,21 @@ public class ArrayDeque<T> {
         lastpos = ptr2;
         items = newArray;
         length *= 2;
+    }
+
+    private void Resizeb() {
+        T[] newArray = (T[]) new Object[length / 2];
+        int ptr1 = prevpos;
+        int ptr2 = length / 4;
+        while (ptr1 != lastpos) {
+            newArray[ptr2] = items[ptr1];
+            ptr1 = stepForward(ptr1, length);
+            ptr2 = stepForward(ptr2, length / 2);
+        }
+        prevpos = length / 4;
+        lastpos = ptr2;
+        items = newArray;
+        length /= 2;
     }
 
     public void addFirst(T item) {
