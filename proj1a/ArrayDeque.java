@@ -3,13 +3,14 @@ public class ArrayDeque<T> {
     private int prevpos;
     private int lastpos;
     private int size;
-    private static final int init_capacity = 8;
+    private int length;
 
     public ArrayDeque() {
-        items = (T[]) new Object[init_capacity];
+        items = (T[]) new Object[8];
         prevpos = 0;
         lastpos = 0;
         size = 0;
+        length = 8;
     }
 
     private int stepForward(int index, int module) {
@@ -17,27 +18,28 @@ public class ArrayDeque<T> {
     }
 
     private int stepBackward(int index) {
-        return (index - 1 + items.length) % items.length;
+        return (index - 1 + length) % length;
     }
 
     private void resizeIfNecessary() {
-        if(size == items.length) {
-            Resize(2 * items.length);
-        } else if(items.length >= 16 && size < items.length * 0.25) {
-            Resize(items.length / 2);
+        if(size == length) {
+            Resize(2 * length);
+        } else if(length >= 16 && size < length * 0.25) {
+            Resize(length / 2);
         } 
     }
 
     private void Resize(int capacity) {
         T[] newArray = (T[]) new Object[capacity];
-        int current = stepForward(prevpos, items.length);
+        int current = stepForward(prevpos, length);
         for(int i = 0 ; i < size ; i += 1) {
             newArray[i] = items[current];
-            current = stepForward(current, items.length);
+            current = stepForward(current, length);
         }
         items = newArray;
         lastpos = size;
         prevpos = capacity - 1;
+        length = capacity;
     }
 
     public void addFirst(T item) {
@@ -52,7 +54,7 @@ public class ArrayDeque<T> {
         resizeIfNecessary();
         items[lastpos] = item;
         size += 1;
-        lastpos = stepForward(lastpos, items.length);
+        lastpos = stepForward(lastpos, length);
 //        resizeIfNecessary();
     }
 
@@ -61,7 +63,7 @@ public class ArrayDeque<T> {
             return null;
         }
 
-        prevpos = stepForward(prevpos, items.length);
+        prevpos = stepForward(prevpos, length);
         T removeElement = items[prevpos];
         items[prevpos] = null;
         size -= 1;
@@ -91,10 +93,10 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        int current = stepForward(prevpos, items.length);
+        int current = stepForward(prevpos, length);
         for(int i = 0 ; i < size ; i += 1) {
             System.out.println(items[current]);
-            current = stepForward(current, items.length);
+            current = stepForward(current, length);
         }
     }
 
@@ -103,7 +105,7 @@ public class ArrayDeque<T> {
             return null;
         }
 
-        int getIndex = (prevpos + index + 1) % items.length;
+        int getIndex = (prevpos + index + 1) % length;
         return items[getIndex];
     }
 
