@@ -14,19 +14,26 @@ public class ArrayDeque<T> {
     }
 
     private int stepForward(int index, int module) {
-        return (index + 1) % module;
+        index %= module;
+        if (index == module - 1) {
+            return 0;
+        }
+        return index + 1;
     }
 
     private int stepBackward(int index) {
-        return (index - 1 + length) % length;
+        if (index == 0) {
+            return length - 1;
+        }
+        return index - 1;
     }
 
     private void resizeIfNecessary() {
-        if(size == length) {
+        if (size == length) {
             Resizea();
-        } else if(length >= 16 && size < length * 0.25) {
+        } else if (length >= 16 && size < length * 0.25) {
             Resizeb();
-        } 
+        }
     }
 
     private void Resizea() {
@@ -61,9 +68,9 @@ public class ArrayDeque<T> {
 
     public void addFirst(T item) {
         resizeIfNecessary();
+        prevpos = stepBackward(prevpos);
         items[prevpos] = item;
         size += 1;
-        prevpos = stepBackward(prevpos);
 //        resizeIfNecessary();
     }
 
@@ -76,12 +83,12 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
 
-        prevpos = stepForward(prevpos, length);
         T removeElement = items[prevpos];
+        prevpos = stepForward(prevpos, length);
         items[prevpos] = null;
         size -= 1;
         resizeIfNecessary();
@@ -89,15 +96,13 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
 
         lastpos = stepBackward(lastpos);
-        T removeElement = items[lastpos];
-        items[lastpos] = null;
         size -= 1;
-        resizeIfNecessary();
+        T removeElement = items[lastpos];
         return removeElement;
     }
 
@@ -110,20 +115,22 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        int current = stepForward(prevpos, length);
-        for(int i = 0 ; i < size ; i += 1) {
+        int current = prevpos;
+        for (int i = 0; i < size; i += 1) {
             System.out.println(items[current]);
             current = stepForward(current, length);
         }
     }
 
     public T get(int index) {
-        if(index < 0 || index >= size) {
+        if (index < 0 || index >= size) {
             return null;
         }
 
-        int getIndex = (prevpos + index + 1) % length;
-        return items[getIndex];
+        int prev = prevpos;
+        for (int i = 0; i < index; i += 1) {
+            prev = stepForward(prev, length);
+        }
+        return items[prev];
     }
-
 }
