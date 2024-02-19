@@ -57,6 +57,10 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
+        if(isEmpty()) {
+            return null;
+        }
+        
         prevpos = stepForward(prevpos);
         T removeElement = items[prevpos];
         items[prevpos] = null;
@@ -66,6 +70,10 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        if(isEmpty()) {
+            return null;
+        }
+
         lastpos = stepBackward(lastpos);
         T removeElement = items[lastpos];
         items[lastpos] = null;
@@ -91,6 +99,7 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        return items[index];
+        int getnum = stepForward(index);
+        return items[getnum];
     }
 }
