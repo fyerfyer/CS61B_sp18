@@ -31,15 +31,17 @@ public class ArrayDeque<T> {
 
     private void Resize(int capacity) {
         T[] newArray = (T[]) new Object[capacity];
-        int current = stepForward(prevpos, length);
-        for(int i = 0 ; i < size ; i += 1) {
-            newArray[i] = items[current];
-            current = stepForward(current, length);
+        int ptr1 = prevpos;
+        int ptr2 = length;
+        while (ptr1 != lastpos) {
+            newArray[ptr2] = items[ptr1];
+            ptr1 = stepForward(ptr1, length);
+            ptr2 = stepForward(ptr2, length * 2);
         }
+        prevpos = length;
+        lastpos = ptr2;
         items = newArray;
-        lastpos = size;
-        prevpos = capacity - 1;
-        length = capacity;
+        length *= 2;
     }
 
     public void addFirst(T item) {
