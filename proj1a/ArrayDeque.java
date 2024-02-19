@@ -24,7 +24,7 @@ public class ArrayDeque<T> {
         if(size == items.length) {
             Resize(2 * size); 
         } else if(items.length >= 16 && size < items.length * 0.25) {
-            Resize(size / 2);
+            Resize(items.length / 2);
         } 
     }
 
@@ -35,6 +35,7 @@ public class ArrayDeque<T> {
             newArray[i] = items[current];
             current = stepForward(current);
         }
+        items = newArray;
         lastpos = size;
         prevpos = capacity - 1; 
     }
@@ -90,7 +91,6 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        int pos = stepForward(prevpos + 1 + index);
-        return items[pos];
+        return items[index];
     }
 }
