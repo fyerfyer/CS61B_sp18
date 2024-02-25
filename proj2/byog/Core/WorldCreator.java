@@ -4,101 +4,100 @@ import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+
 public class WorldCreator extends RectangleHelper {
-    /*
-    fill the world like this:
-    w w w w w w w
-    w 0 w 0 w 0 w
-    w w w w w w w
-    w 0 w 0 w 0 w
-    w w w w w w w
+
+    /** Start by filling world with walls like this:
+     * 0 0 0 0 0
+     * 0 1 0 1 0
+     * 0 0 0 0 0
+     * 0 1 0 1 0
+     * 0 0 0 0 0
      */
-    //width : world.length
-    //height : world[0].length
-    private static void filledWithWalls(TETile[][] world) {
-        for (int i = 0; i < world.length; i += 2) {
-            for (int j = 0; j > world[0].length; j += 1) {
-                world[i][j] = Tileset.WALL;
+    private static void fillWithWalls(TETile[][] world) {
+
+        // Print rows with walls and none.
+        for (int i = 1; i < world[0].length; i += 2) {
+            for (int j = 0; j < world.length; j += 2) {
+                world[j][i] = Tileset.WALL;
             }
         }
 
-        for (int i = 1; i < world.length - 1; i += 2) {
-            for (int j = 0; j < world[0].length; j += 2) {
-                world[i][j] = Tileset.WALL;
+        // Print rows full of walls
+        for (int i = 0; i < world[0].length; i += 2) {
+            for (int j = 0; j < world.length; j += 1) {
+                world[j][i] = Tileset.WALL;
             }
+
         }
     }
 
+    /** Remove all the dead ends. */
     private static void removeDeadEnds(TETile[][] world) {
-        boolean flag = false;
+        boolean done = false;
 
-        while (!flag) {
-            flag = true;
-            for (int i = 0; i < world.length; i += 1) {
-                for (int j = 0; j < world[0].length; j += 1) {
-                    if (world[i][j] != Tileset.WALL) {
+        while (!done) {
+            done = true;
+            for (int i = 0; i < world[0].length; i++) {
+                for (int j = 0; j < world.length; j++) {
+                    if (world[j][i] != Tileset.FLOOR) {
                         continue;
-                    } else {
-                        Position pos = new Position(i,j);
-                        if (!isOnDeadEnd(pos, world)) {
-                            continue;
-                        }
                     }
-
-                    world[i][j] = Tileset.NOTHING;
-                    flag = false;
+                    if (!isOnDeadEnd(new Position(j, i), world)) {
+                        continue;
+                    }
+                    done = false;
+                    world[j][i] = Tileset.WALL;
                 }
             }
         }
     }
 
-    private static void removeInnerWall(TETile[][] world) {
-        for (int i = 0; i < world.length; i += 1) {
-            for (int j = 0; j < world[0].length; j += 1) {
-                if (world[i][j] != Tileset.WALL) {
+    /** Remove all the inner walls.
+     *  When all four corner positions of a wall aren't floor
+     *  it's called a inner wall.
+     */
+    private static void removeInnerWalls(TETile[][] world) {
+        for (int i = 1; i < world[0].length - 1; i++) {
+            for (int j = 1; j < world.length - 1; j++) {
+                if (world[j][i] != Tileset.WALL) {
                     continue;
                 }
-                Position pos = new Position(i,j);
-                if (isInnerWall(pos, world)) {
+                if (!isInnerWall(new Position(j, i), world)) {
                     continue;
                 }
-
-                world[i][j] = Tileset.NOTHING;
+                world[j][i] = Tileset.NOTHING;
             }
         }
     }
 
     public static TETile[][] worldGenerator(Random RANDOM, TETile[][] world) {
-        filledWithWalls(world);
+        fillWithWalls(world);
         List<Room> rooms = Room.roomGenerator(RANDOM, world);
         Hallways.hallwaysGenerator(RANDOM, world);
         for (Room room : rooms) {
             room.convertWall(RANDOM, world);
         }
-
         removeDeadEnds(world);
-        removeInnerWall(world);
+        removeInnerWalls(world);
 
-        // add a gate for the world
-        // the gate is located at the side of the world
-        for (int i = 0; i < world[0].length; i += 1) {
-            if (world[world.length - 2][i] == Tileset.FLOOR) {
+        // Add a door at right edge.
+        for (int i = world[0].length - 1; i > 0; i--) {
+            if (world[world.length - 2][i].equals(Tileset.FLOOR)) {
                 world[world.length - 2][i] = Tileset.LOCKED_DOOR;
                 break;
             }
         }
-
         return world;
     }
 
     public static void main(String[] args) {
-        int width = 80;
-        int height = 30;
-        int seed = 12345678;
+        int width = 81;
+        int height = 31;
+        int seed = 23456758;
         Random RANDOM = new Random(seed);
         TERenderer ter = new TERenderer();
         ter.initialize(width, height);

@@ -21,9 +21,9 @@ public class Hallways extends RectangleHelper{
             if (!isOnEdge(around[i], world)
                     && !world[around[i].x][around[i].y].equals(Tileset.FLOOR)
                     && world[des[i].x][des[i].y].equals(Tileset.NOTHING)){
-                    suitPos.add(des[i]);
-                }
+                suitPos.add(des[i]);
             }
+        }
 
         return suitPos;
     }
