@@ -15,9 +15,9 @@ public class RectangleHelper {
     public static Position[] cornerPositions(int width, int height, Position pos) {
         Position[] pArray = new Position[4];
         pArray[0] = new Position(pos.x, pos.y);
-        pArray[1] = new Position(pos.x, pos.y + height);
-        pArray[2] = new Position(pos.x + width, pos.y);
-        pArray[3] = new Position(pos.x + width, pos.y + height);
+        pArray[1] = new Position(pos.x, pos.y + height - 1);
+        pArray[2] = new Position(pos.x + width - 1, pos.y);
+        pArray[3] = new Position(pos.x + width - 1, pos.y + height - 1);
         return pArray;
     }
 

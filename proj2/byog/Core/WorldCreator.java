@@ -9,80 +9,78 @@ import java.util.Random;
 
 
 public class WorldCreator extends RectangleHelper {
-
-    /** Start by filling world with walls like this:
-     * 0 0 0 0 0
-     * 0 1 0 1 0
-     * 0 0 0 0 0
-     * 0 1 0 1 0
-     * 0 0 0 0 0
-     */
-    private static void fillWithWalls(TETile[][] world) {
-
-        // Print rows with walls and none.
-        for (int i = 1; i < world[0].length; i += 2) {
-            for (int j = 0; j < world.length; j += 2) {
-                world[j][i] = Tileset.WALL;
+    /*
+        fill the world like this:
+        w w w w w w w
+        w 0 w 0 w 0 w
+        w w w w w w w
+        w 0 w 0 w 0 w
+        w w w w w w w
+         */
+    //width : world.length
+    //height : world[0].length
+    private static void filledWithWalls(TETile[][] world) {
+        for (int i = 0; i < world.length; i += 2) {
+            for (int j = 0; j < world[0].length; j += 1) {
+                world[i][j] = Tileset.WALL;
             }
         }
 
-        // Print rows full of walls
-        for (int i = 0; i < world[0].length; i += 2) {
-            for (int j = 0; j < world.length; j += 1) {
-                world[j][i] = Tileset.WALL;
+        for (int i = 1; i < world.length - 1; i += 2) {
+            for (int j = 0; j < world[0].length; j += 2) {
+                world[i][j] = Tileset.WALL;
             }
-
         }
     }
 
     /** Remove all the dead ends. */
     private static void removeDeadEnds(TETile[][] world) {
-        boolean done = false;
+        boolean flag = false;
 
-        while (!done) {
-            done = true;
-            for (int i = 0; i < world[0].length; i++) {
-                for (int j = 0; j < world.length; j++) {
-                    if (world[j][i] != Tileset.FLOOR) {
+        while (!flag) {
+            flag = true;
+            for (int i = 0; i < world.length; i += 1) {
+                for (int j = 0; j < world[0].length; j += 1) {
+                    if (world[i][j] != Tileset.FLOOR) {
                         continue;
+                    } else {
+                        Position pos = new Position(i,j);
+                        if (!isOnDeadEnd(pos, world)) {
+                            continue;
+                        }
                     }
-                    if (!isOnDeadEnd(new Position(j, i), world)) {
-                        continue;
-                    }
-                    done = false;
-                    world[j][i] = Tileset.WALL;
+
+                    world[i][j] = Tileset.NOTHING;
+                    flag = false;
                 }
             }
         }
     }
 
-    /** Remove all the inner walls.
-     *  When all four corner positions of a wall aren't floor
-     *  it's called a inner wall.
-     */
-    private static void removeInnerWalls(TETile[][] world) {
-        for (int i = 1; i < world[0].length - 1; i++) {
-            for (int j = 1; j < world.length - 1; j++) {
-                if (world[j][i] != Tileset.WALL) {
+    private static void removeInnerWall(TETile[][] world) {
+        for (int i = 1; i < world.length - 1; i += 1) {
+            for (int j = 1; j < world[0].length - 1; j += 1) {
+                if (world[i][j] != Tileset.WALL) {
                     continue;
                 }
-                if (!isInnerWall(new Position(j, i), world)) {
+                Position pos = new Position(i,j);
+                if (!isInnerWall(pos, world)) {
                     continue;
                 }
-                world[j][i] = Tileset.NOTHING;
+                world[i][j] = Tileset.NOTHING;
             }
         }
     }
 
     public static TETile[][] worldGenerator(Random RANDOM, TETile[][] world) {
-        fillWithWalls(world);
+        filledWithWalls(world);
         List<Room> rooms = Room.roomGenerator(RANDOM, world);
         Hallways.hallwaysGenerator(RANDOM, world);
         for (Room room : rooms) {
             room.convertWall(RANDOM, world);
         }
         removeDeadEnds(world);
-        removeInnerWalls(world);
+        removeInnerWall(world);
 
         // Add a door at right edge.
         for (int i = world[0].length - 1; i > 0; i--) {
