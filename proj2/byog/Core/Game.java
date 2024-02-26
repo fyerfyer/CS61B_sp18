@@ -12,7 +12,8 @@ public class Game {
     public static final int width = 80;
     public static final int height = 30;
 
-    private static TETile[][] worldInitiator (TETile[][] world) {
+    private static TETile[][] worldInitiator () {
+        TETile[][] world = new TETile[width][height];
         for (int i = 0; i < world.length; i += 1) {
             for (int j = 0; j < world[0].length; j += 1) {
                 world[i][j] = Tileset.NOTHING;
@@ -43,11 +44,10 @@ public class Game {
         // TODO: Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
-        String numbersOnly = input.replaceAll("\\D", "");
-        long seed = Long.parseLong(numbersOnly);
+
+        long seed = Long.parseLong(input.replaceAll("[^0-9]", ""));
         Random RANDOM = new Random(seed);
-        TETile[][] world = new TETile[width][height];
-        world = worldInitiator(world);
+        TETile[][] world = worldInitiator();
         return WorldCreator.worldGenerator(RANDOM, world);
     }
 }
