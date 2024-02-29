@@ -51,8 +51,9 @@ public class Percolation {
         if (arr[nowrow][nowcol] == 1) {
             site.union(getPos(nowrow, nowcol), getPos(prerow, precol));
         }
-    }
 
+    }
+    
     // open the site (row, col) if it is not open already
     public void open(int row, int col) {
         if (!validatePos(row, col)) {
