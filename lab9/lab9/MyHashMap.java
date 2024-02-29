@@ -57,7 +57,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
             return null;
         }
         int num = hash(key);
-        return this.buckets[num].get(key);
+        return buckets[num].get(key);
     }
 
     /* Associates the specified value with the specified key in this map. */
@@ -68,20 +68,21 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         }
         int num = hash(key);
         if (!buckets[num].containsKey(key)) {
-            buckets[num].put(key, value);
             size += 1;
         }
+        buckets[num].put(key, value);
+        
     }
 
     private void resize() {
-        ArrayMap<K, V> oldMap[] = buckets;
+        ArrayMap<K, V>[] oldMap = buckets;
         int N = buckets.length;
         buckets = new ArrayMap[N * 2];
         for (int i = 0; i < N * 2; i += 1) {
             buckets[i] =new ArrayMap<>();
         }
         for (ArrayMap<K, V>oldHash : oldMap) {
-            for (K key : oldHash) {
+            for (K key : oldHash.keySet()) {
                 int num = hash(key);
                 V value = oldHash.get(key);
                 buckets[num].put(key, value);
