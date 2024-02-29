@@ -4,6 +4,7 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
     // create N-by-N grid, with all sites initially blocked
+    private int N;
     private int[][] arr;
     private WeightedQuickUnionUF site;
     private int size;
@@ -14,6 +15,7 @@ public class Percolation {
         if (N <= 0) {
             throw new java.lang.IllegalArgumentException("Invalid index!");
         }
+        this.N = N;
         bottomConnector = N * N;
         upperConnector = N * N + 1;
         site = new WeightedQuickUnionUF(N * N + 2);
@@ -31,6 +33,10 @@ public class Percolation {
         }
     }
 
+    private int getPos(int row, int col) {
+        return row * N + col;
+    }
+
     private boolean validatePos(int row, int col) {
         if (row < 0 || row > arr.length - 1 || col < 0 || col > arr.length - 1) {
             return false;
@@ -43,7 +49,7 @@ public class Percolation {
             return;
         }
         if (arr[nowrow][nowcol] == 1) {
-            site.union(precol * arr.length + precol, nowrow * arr.length + nowcol);
+            site.union(getPos(nowrow, nowcol), getPos(prerow, precol));
         }
     }
 
@@ -78,7 +84,7 @@ public class Percolation {
         if (!isOpen(row, col)) {
             return false;
         }
-        return site.connected(bottomConnector, row * arr.length + col);
+        return site.connected(bottomConnector, getPos(row, col));
     }
 
     // number of open sites
