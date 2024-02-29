@@ -7,6 +7,7 @@ public class Percolation {
     private int N;
     private int[][] arr;
     private WeightedQuickUnionUF site;
+    private WeightedQuickUnionUF isFullSite;
     private int size;
     private int bottomConnector;
     private int upperConnector;
@@ -19,6 +20,7 @@ public class Percolation {
         bottomConnector = N * N;
         upperConnector = N * N + 1;
         site = new WeightedQuickUnionUF(N * N + 2);
+        isFullSite = new WeightedQuickUnionUF(N * N + 2);
         size = 0;
         arr = new int[N][N];
         for (int i = 0; i < N; i += 1) {
@@ -29,8 +31,10 @@ public class Percolation {
 
         for (int i = 0; i < N; i += 1) {
             site.union(bottomConnector, i);
-            site.union(upperConnector, i + N * (N - 1));
+            site.union(upperConnector, getPos(N - 1, i));
+            isFullSite.union(bottomConnector, i);
         }
+
     }
 
     private int getPos(int row, int col) {
@@ -38,7 +42,7 @@ public class Percolation {
     }
 
     private boolean validatePos(int row, int col) {
-        if (row < 0 || row > arr.length - 1 || col < 0 || col > arr.length - 1) {
+        if (row < 0 || row > N - 1 || col < 0 || col > N - 1) {
             return false;
         }
         return true;
@@ -50,10 +54,11 @@ public class Percolation {
         }
         if (arr[nowrow][nowcol] == 1) {
             site.union(getPos(nowrow, nowcol), getPos(prerow, precol));
+            isFullSite.union(getPos(nowrow, nowcol), getPos(prerow, precol));
         }
 
     }
-    
+
     // open the site (row, col) if it is not open already
     public void open(int row, int col) {
         if (!validatePos(row, col)) {
@@ -85,7 +90,7 @@ public class Percolation {
         if (!isOpen(row, col)) {
             return false;
         }
-        return site.connected(bottomConnector, getPos(row, col));
+        return isFullSite.connected(bottomConnector, getPos(row, col));
     }
 
     // number of open sites
@@ -95,6 +100,9 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
+        if (size == 0) {
+            return false;
+        }
         return site.connected(upperConnector, bottomConnector);
     }
 
