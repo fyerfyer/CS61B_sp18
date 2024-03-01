@@ -71,7 +71,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
             size += 1;
         }
         buckets[num].put(key, value);
-        
+
     }
 
     private void resize() {
