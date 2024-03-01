@@ -91,7 +91,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      */
     @Override
     public void put(K key, V value) {
-        putHelper(key, value, root);
+        root = putHelper(key, value, root);
     }
 
     /* Returns the number of key-value mappings in this map. */
