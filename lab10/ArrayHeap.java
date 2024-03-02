@@ -178,7 +178,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         contents[num] = null;
         size -= 1;
         if (size > 0)sink(1);
-        
+
         return removeItem;
     }
 
@@ -204,12 +204,16 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         /* TODO: Your code here! */
         int num = -1;
         for (int i = 0; i < contents.length; i += 1) {
-            if (contents[i].item() == item) {
+            if (contents[i].item().equals(item)) {
                 num = i;
                 contents[i].myPriority = priority;
+                break;
             }
         }
-        if (min(num, parentIndex(num)) == num) {
+
+        if (num == -1 || num == 1 || num * 2 > size()) {
+            return;
+        } else if (min(num, parentIndex(num)) == num) {
             swim(num);
         } else {
             sink(num);
