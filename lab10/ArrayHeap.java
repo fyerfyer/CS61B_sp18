@@ -108,10 +108,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         /** TODO: Your code here. */
-        int par = parentIndex(index);
-        while (index > 1 && min(par, index) == index) {
-            swap(par, index);
-            index = par;
+        while (index > 1 && min(parentIndex(index), index) == index) {
+            swap(parentIndex(index), index);
+            index = parentIndex(index);
         }
         return;
     }
@@ -126,7 +125,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         /** TODO: Your code here. */
         while (2 * index <= size) {
             int son = leftIndex(index);
-            if (min(son, son + 1) == son + 1) son = son + 1;
+            if (min(son, son + 1) == son + 1 && son < size()) son = son + 1;
             if (min(son, index) == index) break;
             swap(son, index);
             index = son;
@@ -149,6 +148,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         contents[++size] = new Node(item, priority);
         swim(size);
     }
+
 
     /**
      * Returns the Node with the smallest priority value, but does not remove it
