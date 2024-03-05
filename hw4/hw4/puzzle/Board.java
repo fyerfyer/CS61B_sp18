@@ -111,7 +111,8 @@ public class Board implements WorldState{
         return manhattan();
     }
 
-    public boolean equal(Object other) {
+    @Override
+    public boolean equals(Object other) {
         if (this == other) return true;
         if (other == null) return false;
         if (other.getClass() != this.getClass()) return false;
@@ -141,6 +142,11 @@ public class Board implements WorldState{
         }
         s.append("\n");
         return s.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
 }
