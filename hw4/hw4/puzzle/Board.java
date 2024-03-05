@@ -63,15 +63,15 @@ public class Board implements WorldState{
     }
 
     private int xyToD(int x, int y) {
-        return x * N + y;
+        return x * N + y + 1;
     }
 
     private int posX(int num) {
-        return (int) num / N;
+        return (int) (num - 1) / N;
     }
 
     private int posY(int num) {
-        return (int) num % N;
+        return (int) (num - 1) % N;
     }
 
     private int disCal(int x, int y, int xx, int yy) {
@@ -106,12 +106,25 @@ public class Board implements WorldState{
         return tot;
     }
 
+    @Override
     public int estimatedDistanceToGoal() {
         return manhattan();
     }
 
-    public boolean equal() {
-        return manhattan() == 0;
+    public boolean equal(Object other) {
+        if (this == other) return true;
+        if (other == null) return false;
+        if (other.getClass() != this.getClass()) return false;
+
+        Board o = (Board) other;
+        if (o.N != this.N) return false;
+        for (int i = 0; i < N; i += 1) {
+            for (int j = 0; j < N; j += 1) {
+                if (o[i][j] == arr[i][j]) return false;
+            }
+        }
+
+        return true;
     }
 
     /** Returns the string representation of the board. 
