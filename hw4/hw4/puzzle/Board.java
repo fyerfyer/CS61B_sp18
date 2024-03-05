@@ -120,7 +120,7 @@ public class Board implements WorldState{
         if (o.N != this.N) return false;
         for (int i = 0; i < N; i += 1) {
             for (int j = 0; j < N; j += 1) {
-                if (o[i][j] == arr[i][j]) return false;
+                if (o.arr[i][j] == arr[i][j]) return false;
             }
         }
 
