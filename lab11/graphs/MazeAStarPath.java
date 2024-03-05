@@ -87,4 +87,3 @@ public class MazeAStarPath extends MazeExplorer {
     }
 
 }
-

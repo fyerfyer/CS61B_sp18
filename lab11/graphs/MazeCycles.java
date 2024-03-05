@@ -58,4 +58,3 @@ public class MazeCycles extends MazeExplorer {
 
     // Helper methods go here
 }
-
