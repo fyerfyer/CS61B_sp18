@@ -66,8 +66,8 @@ public class QuickSort {
         Queue<Item> equal = new Queue<>();
         Queue<Item> greater = new Queue<>();
         partition(items, pivot, less, equal, greater);
-        quickSort(less);
-        quickSort(greater);
+        less = quickSort(less);
+        greater = quickSort(greater);
         items = catenate(less, equal);
         items = catenate(items, greater);
         return items;
@@ -82,7 +82,22 @@ public class QuickSort {
         students.enqueue("Tony");
         students.enqueue("Tony");
         students.enqueue("Frank");
-        students = QuickSort.quickSort(students);
+        students.enqueue("Black");
+        students = MergeSort.mergeSort(students);
+        //1 1 6 2 3 7 3 8 8 8
+        Queue<Integer> num = new Queue<>();
+        num.enqueue(1);
+        num.enqueue(1);
+        num.enqueue(6);
+        num.enqueue(2);
+        num.enqueue(3);
+        num.enqueue(7);
+        num.enqueue(3);
+        num.enqueue(8);
+        num.enqueue(8);
+        num.enqueue(8);
+        num = QuickSort.quickSort(num);
         System.out.println(students);
+        System.out.println(num);
     }
 }

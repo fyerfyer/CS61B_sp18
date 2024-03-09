@@ -95,6 +95,20 @@ public class MergeSort {
         students.enqueue("Frank");
         students.enqueue("Black");
         students = MergeSort.mergeSort(students);
+        //1 1 6 2 3 7 3 8 8 8
+        Queue<Integer> num = new Queue<>();
+        num.enqueue(1);
+        num.enqueue(1);
+        num.enqueue(6);
+        num.enqueue(2);
+        num.enqueue(3);
+        num.enqueue(7);
+        num.enqueue(3);
+        num.enqueue(8);
+        num.enqueue(8);
+        num.enqueue(8);
+        num = MergeSort.mergeSort(num);
         System.out.println(students);
+        System.out.println(num);
     }
 }
