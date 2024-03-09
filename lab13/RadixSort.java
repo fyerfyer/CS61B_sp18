@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Class for doing Radix sort
  *
@@ -17,7 +19,17 @@ public class RadixSort {
      */
     public static String[] sort(String[] asciis) {
         // TODO: Implement LSD Sort
-        return null;
+        int maxLen = 0;
+        for (String s : asciis) {
+            if (s.length() > maxLen) maxLen = s.length();
+        }
+
+        String[] res = Arrays.copyOf(asciis, asciis.length);
+        for(int d = 0; d < maxLen; d += 1) {
+            sortHelperLSD(res, d);
+        }
+
+        return res;
     }
 
     /**
@@ -27,9 +39,31 @@ public class RadixSort {
      * @param index The position to sort the Strings on.
      */
     private static void sortHelperLSD(String[] asciis, int index) {
-        // Optional LSD helper method for required LSD radix sort
-        return;
+        int R = 256;
+        int[] count = new int[R + 1];
+        for (String s : asciis) {
+            count[s.charAt(index) + 1]++;
+        }
+
+        // turn input into index
+        for (int r = 0; r < R; r++) {
+            count[r + 1] += count[r];
+        }
+
+        // partition
+        String[] aux = new String[asciis.length];
+        for (String s : asciis) {
+            int position = count[s.charAt(index)];
+            aux[position] = s;
+            count[s.charAt(index)]++;
+        }
+
+        // rewrite
+        for (int i = 0; i < asciis.length; i++) {
+            asciis[i] = aux[i];
+        }
     }
+
 
     /**
      * MSD radix sort helper function that recursively calls itself to achieve the sorted array.
@@ -44,5 +78,13 @@ public class RadixSort {
     private static void sortHelperMSD(String[] asciis, int start, int end, int index) {
         // Optional MSD helper method for optional MSD radix sort
         return;
+    }
+
+    public static void main(String[] args) {
+        String[] arr = {"abc", "def", "bcd", "xyz", "ghi", "rst", "uvw", "mno"};
+        String[] arr2 = {"apple", "banana", "orange", "grape", "melon", "kiwi", "pear", "peach"};
+        arr = RadixSort.sort(arr);
+        System.out.println(Arrays.toString(arr));
+        System.out.println(Arrays.toString(arr2));
     }
 }
