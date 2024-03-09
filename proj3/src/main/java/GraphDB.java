@@ -1,12 +1,23 @@
-import org.xml.sax.SAXException;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.util.ArrayList;
+
+import org.xml.sax.SAXException;
 
 /**
  * Graph for storing all of the intersection (vertex) and road (edge) information.
@@ -26,6 +37,10 @@ public class GraphDB {
      * You do not need to modify this constructor, but you're welcome to do so.
      * @param dbPath Path to the XML file to be parsed.
      */
+    private final Map<Long, Node> nodes = new LinkedHashMap<>();
+    private final Map<Long, Way> ways = new LinkedHashMap<>();
+    private final KdTree kdTreeForNearestNeighbor = new KdTree();
+
     public GraphDB(String dbPath) {
         try {
             File inputFile = new File(dbPath);
@@ -58,6 +73,13 @@ public class GraphDB {
      */
     private void clean() {
         // TODO: Your code here.
+        Iterator<Long> it = nodes.keySet().iterator();
+        while (it.hasNext()) {
+            Long node = it.next();
+            if (nodes.get(node).adj.isEmpty()) {
+                it.remove();
+            }
+        }
     }
 
     /**
@@ -66,7 +88,7 @@ public class GraphDB {
      */
     Iterable<Long> vertices() {
         //YOUR CODE HERE, this currently returns only an empty list.
-        return new ArrayList<Long>();
+        return nodes.keySet();
     }
 
     /**
@@ -75,7 +97,7 @@ public class GraphDB {
      * @return An iterable of the ids of the neighbors of v.
      */
     Iterable<Long> adjacent(long v) {
-        return null;
+        return nodes.get(v).adj;
     }
 
     /**
@@ -136,7 +158,7 @@ public class GraphDB {
      * @return The id of the node in the graph closest to the target.
      */
     long closest(double lon, double lat) {
-        return 0;
+        return kdTreeForNearestNeighbor.nearest(lon, lat);
     }
 
     /**
@@ -145,7 +167,7 @@ public class GraphDB {
      * @return The longitude of the vertex.
      */
     double lon(long v) {
-        return 0;
+        return nodes.get(v).lon;
     }
 
     /**
@@ -154,6 +176,85 @@ public class GraphDB {
      * @return The latitude of the vertex.
      */
     double lat(long v) {
-        return 0;
+        return nodes.get(v).lat;
     }
+
+    void addNode(Node node) {
+        nodes.put(node.id, node);
+    }
+
+    void addEdge(Long a, Long b) {
+        nodes.get(a).adj.add(b);
+    }
+
+    void removeNode(Node node) {
+        nodes.remove(node.id);
+    }
+
+    double getDistTo(long v) {
+        return nodes.get(v).distTo;
+    }
+
+    void changeDistTo(long v, double newDistTo) {
+        nodes.get(v).distTo = newDistTo;
+    }
+
+    double getPriority(long v) {
+        return nodes.get(v).priority;
+    }
+
+    void changePriority(long v, double newPriority) {
+        nodes.get(v).priority = newPriority;
+    }
+
+    static class Node {
+        long id;
+        double lon;
+        double lat;
+        Set<Long> adj;
+        List<Long> wayId;
+        double distTo = 0;
+        double priority = 0;
+
+        Node(long id, double lon, double lat) {
+            this.id = id;
+            this.lon = lon;
+            this.lat = lat;
+            this.adj = new LinkedHashSet<>();
+            this.wayId = new ArrayList<>();
+        }
+    }
+
+    class NodeComparator implements Comparator<Long> {
+        @Override
+        public int compare(Long a, Long b) {
+            return Double.compare(nodes.get(a).priority, nodes.get(b).priority);
+        }
+    }
+
+    public Comparator<Long> getNodeComparator() {
+        return new NodeComparator();
+    }
+
+    static class Way {
+        long id;
+        String maxSpeed;
+        String name;
+        String highway;
+        List<Long> locations;
+
+        Way(long id) {
+            this.id = id;
+            this.locations = new ArrayList<>();
+        }
+    }
+
+    public List<Long> getWay(long node) {
+        return nodes.get(node).wayId;
+    }
+
+    public String getWayName(long node) {
+        return ways.get(node).name;
+    }
+
 }

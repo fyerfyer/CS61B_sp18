@@ -8,6 +8,18 @@ import java.util.Map;
  * not draw the output correctly.
  */
 public class Rasterer {
+    private static double[] depthLonDPP = new double[8];
+    private static final double initLRLON = MapServer.ROOT_LRLON;
+    private static final double initLRLAT = MapServer.ROOT_LRLAT;
+    private static final double initULLON = MapServer.ROOT_ULLON;
+    private static final double initULLAT = MapServer.ROOT_ULLAT;
+
+    static {
+        depthLonDPP[0] = (initLRLON - initULLON) / MapServer.TILE_SIZE;
+        for (int i = 1; i < 8; i += 1) {
+            depthLonDPP[i] = depthLonDPP[i - 1] / 2;
+        }
+    }
 
     public Rasterer() {
         // YOUR CODE HERE
@@ -43,10 +55,86 @@ public class Rasterer {
      */
     public Map<String, Object> getMapRaster(Map<String, Double> params) {
         // System.out.println(params);
-        Map<String, Object> results = new HashMap<>();
-        System.out.println("Since you haven't implemented getMapRaster, nothing is displayed in "
-                           + "your browser.");
-        return results;
+        Map<String, Object> result = new HashMap<>();
+        double neededULLON = params.get("ullon");
+        double neededULLAT = params.get("ullat");
+        double neededLRLON = params.get("lrlon");
+        double neededLRLAT = params.get("lrlat");
+
+        if (neededULLON < initULLON || neededULLAT > initULLAT || neededLRLON > initLRLON || neededLRLAT < initLRLAT) {
+            result.put("render_grid", null);
+            result.put("raster_ul_lon", 0);
+            result.put("raster_ul_lat", 0);
+            result.put("raster_lr_lon", 0);
+            result.put("raster_lr_lat", 0);
+            result.put("depth", 0);
+            result.put("query_success", false);
+
+            return result;
+        }
+
+        double neededLonDPP = (neededLRLON - neededULLON) / params.get("w");
+        int neededDepth = getDepth(neededLonDPP);
+        double maxTILE = Math.pow(2, neededDepth);
+
+        int xLeft = 0, xRight = 0, yLeft = 0, yRight = 0;
+        double xDiff = (initLRLON - initULLON) / maxTILE;
+        double yDiff = (initULLAT - initLRLAT) / maxTILE;
+
+        for (double init = initULLON; init <= neededULLON; init += xDiff) {
+            xLeft += 1;
+        }
+
+        for (double init = initULLON; init <= neededLRLON; init += xDiff) {
+            if (xRight < maxTILE - 1) xRight += 1;
+            else break;//has used up all the place
+        }
+
+        //from top to bottom!!!
+        for (double init = initULLAT; init >= neededULLAT; init -= yDiff) {
+            yLeft += 1;
+        }
+
+        for (double init = initULLAT; init >= neededLRLAT; init -= yDiff) {
+            if (yRight < maxTILE - 1) yRight += 1;
+            else break;
+        }
+
+        if (xLeft > 0) xLeft -= 1;
+        if (xRight > 0) xRight -= 1;
+        if (yLeft > 0) yLeft -= 1;
+        if (yRight > 0) yRight -= 1;
+
+//        System.out.println(xLeft);
+//        System.out.println(xRight);
+//        System.out.println(yLeft);
+//        System.out.println(yRight);
+
+        String[][] file = new String[yRight - yLeft + 1][xRight - xLeft + 1];
+        for (int y = yLeft; y <= yRight; y++) {
+            for (int x = xLeft; x <= xRight; x++) {
+                file[y - yLeft][x - xLeft] = "d" + neededDepth + "_x" + x + "_y" + y + ".png";
+            }
+        }
+
+        result.put("render_grid", file);
+        result.put("raster_ul_lon", initULLON + xLeft * xDiff);
+        result.put("raster_ul_lat", initULLAT - yLeft * yDiff);
+        result.put("raster_lr_lon", initULLON + (xRight + 1) * xDiff);
+        result.put("raster_lr_lat", initULLAT - (yRight + 1) * yDiff);
+        result.put("depth", neededDepth);
+        result.put("query_success", true);
+
+        return result;
     }
 
+    private int getDepth(double inputLonDPP) {
+        int index = 0;
+        while (depthLonDPP[index] > inputLonDPP) {
+            index += 1;
+            if (index == depthLonDPP.length - 1) break;
+        }
+
+        return index;
+    }
 }
