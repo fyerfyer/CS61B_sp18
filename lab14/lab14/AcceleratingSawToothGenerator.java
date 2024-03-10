@@ -2,17 +2,18 @@ package lab14;
 
 import lab14lib.Generator;
 
-public class AcceleratingSawToothGenerator {
+public class AcceleratingSawToothGenerator implements Generator {
     private int period;
     private double growth;
     private int state;
 
-    public AcceleratingSawToothGenerator(int period, double growth) {
+    public AcceleratingSawToothGenerator r(int period, double growth) {
         this.period = period;
         this.growth = growth;
         state = 0;
     }
 
+    @Override
     public double next() {
         state += 1;
         double res = normalize(state % period);
