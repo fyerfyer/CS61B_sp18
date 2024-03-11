@@ -49,22 +49,6 @@ public class SeamCarver {
         return rx * rx + gx * gx + bx * bx + ry * ry + gy * gy + by * by;
     }
 
-    private int left(int x) {
-        return (x - 1) % width;
-    }
-
-    private int right(int x) {
-        return (x + 1) % width;
-    }
-
-    private int up(int x) {
-        return (x - 1) % height;
-    }
-
-    private int down(int x) {
-        return (x + 1) % height;
-    }
-
     private void swap() {
         int tmp = width;
         width = height;
