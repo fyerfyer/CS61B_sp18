@@ -120,7 +120,7 @@ public class SeamCarver {
         }
 
         minPos = i + minPos - 1;
-        path[i][j] = minPos;
+        path[i][j - 1] = minPos;
         return minCost;
     }
 
