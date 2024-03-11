@@ -26,23 +26,17 @@ public class SeamCarver {
     }
 
     public double energy(int x, int y) {
-        if (x >= width || y >= height) {
-            throw new java.lang.IndexOutOfBoundsException("Invalid index!");
-        }
-
         Color up, down, left, right;
         if (isVertical) {
-            up = picture.get(x, up(y));
-            down = picture.get(x, down(y));
-            left = picture.get(left(x), y);
-            right = picture.get(right(x), y);
-        }
-
-        else {
-            up = picture.get(y, up(x));
-            down = picture.get(y, down(x));
-            left = picture.get(left(y), x);
-            right = picture.get(right(y), x);
+            up = y > 0 ? picture.get(x, y - 1) : picture.get(x, height - 1);
+            down = y < height - 1 ? picture.get(x, y + 1) : picture.get(x, 0);
+            left = x > 0 ? picture.get(x - 1, y) : picture.get(width - 1, y);
+            right = x < width - 1 ? picture.get(x + 1, y) : picture.get(0, y);
+        } else {
+            up = x > 0 ? picture.get(x - 1, y) : picture.get(height - 1, y);
+            down = x < height - 1 ? picture.get(x + 1, y) : picture.get(0, y);
+            left = y > 0 ? picture.get(x, y - 1) : picture.get(x, width - 1);
+            right = y < width - 1 ? picture.get(x, y + 1) : picture.get(x, 0);
         }
 
         int rx = left.getRed() - right.getRed();
