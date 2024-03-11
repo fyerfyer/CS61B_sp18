@@ -20,6 +20,6 @@ public class HuffmanDecoder {
             bitSequence = bitSequence.allButFirstNBits(match.getSequence().length());
         }
 
-        FileUtils.writeCharArray(fileName, res);
+        FileUtils.writeCharArray(args[1], res);
     }
 }
