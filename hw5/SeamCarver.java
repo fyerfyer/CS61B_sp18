@@ -13,7 +13,7 @@ public class SeamCarver {
         this.height = picture.height();
     }
 
-    public Picture picture(Picture picture) {
+    public Picture picture() {
         return new Picture(picture);
     }
 
